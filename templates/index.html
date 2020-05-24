@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/7.3.0/adapter.min.js"></script>
+
+    <script async="" src="//www.google-analytics.com/analytics.js"></script>
+    <!-- <link rel="stylesheet" type="text/css" href=css/index.css/> -->
+    <!-- <script type="text/javascript" src="js/main.js"></script> -->
+    <link rel="stylesheet" type="text/css" href={{ url_for( 'static',filename='css/index.css' ) }}/>
+    <!-- <script src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/peerjs@1.2.0/dist/peerjs.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='js/main.js') }}"></script>
+</head>
+
+<body>
+    <div class='container-inline headerout'>
+        <header class='container'>
+            <h1 class='head'>
+                <div class='l'>Animate</div>
+                <div class='r'>Chat</div>
+            </h1>
+        </header>
+    </div>
+    <section class='container'>
+        <section class='videos row align-items-center'>
+            <section class='col'>
+                <video id="org_video" style="display:none" autoplay></video>
+                <button type="button" class="btn btn-light" id="animate" style="display: none;" disabled='true'>Animate!</button>
+                <button typclass="btn btn-light" id="showVideo">Open camera</button>
+            </section>
+            <section class='col'>
+
+                <!-- <canvas id="c1" width="256" height="256" style="display: none;"></canvas> -->
+                <!-- <canvas id="c1" width="256" height="256" style="display:none;"></canvas> -->
+                <video id="animate_video" width="256" height="256" style="display:none;" autoplay></video>
+                <!-- <button id="updateTarget">Upload Target</button> -->
+                <label class="btn btn-light">
+                    Upload Target <input type="file" id='uploadtarget' enctype="multipart/form-data" hidden>
+                </label>
+            </section>
+            <section class='col'>
+                <!-- <canvas id="c2" width="256" height="256" style="display: none;"></canvas> -->
+                <video id="remote_video" style="display:none" autoplay></video>
+                <div id='unconnected'>
+                    <input type="text" name="roomid" id="roomid">
+                    <button typclass="btn btn-light" id="connect">connect</button>
+                </div>
+                <div id='connected' style='display: none;'>
+                    <!-- <input type="text" name="roomid" id="roomid"> -->
+                    <select id='streamop'>
+                        <option value = 'as' selected = "selected">Animate Stream</option>
+                        <option value = 'os'>Orginal Stream</option>
+                    </select>
+                    <button typclass="btn btn-light" id="disconnect_but">disconnect</button>
+                </div>
+                <div>
+                    <div id='myID'></div>
+                    <div id='cstatus'></div>
+                </div>
+            </section>
+        </section>
+    </section>
+    <section class='container'>
+        <h2>Instructions to get better performance</h2>
+        <ul>
+            <li>Brighten your face to make the facial features clear in the webcam. </li>
+            <li>Before clicking 'Animate!', please try to be the same as the target pose</li>
+        </ul>
+    </section>
+</body>
+
+</html>
