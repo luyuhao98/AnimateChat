@@ -6,10 +6,18 @@ from flask import render_template
 from pdb import set_trace
 from model import Animator
 from secrets import token_urlsafe
+import os, sys
+
+if getattr(sys, 'frozen', False):
+    template_folder = os.path.join(sys._MEIPASS, 'templates')
+    static_folder=os.path.join(sys._MEIPASS, 'static'),
+    app = Flask(__name__, static_folder =static_folder, template_folder=template_folder)
+else:
+    app = Flask(__name__)
 
 animator = Animator()
 
-app = Flask(__name__)
+
 @app.route('/')
 def index():
     resp = make_response(render_template('index.html'))
