@@ -212,7 +212,7 @@ let communication = {
     },
     init: function() {
         this.peer = new Peer(null, {
-            host: '59.110.242.215',
+          host: '59.110.242.215',
             // host: 'localhost',
             port: 8100,
             path: 'rooms',
@@ -306,21 +306,20 @@ let communication = {
         })
     },
     ready4call: function() {
-        this.call.self = this;
         this.call.on('stream', function(stream) {
             global.remoteVideo = document.getElementById('remote_video');
             global.remoteVideo.style.display = 'inline';
             global.remoteStream = stream;
             global.remoteVideo.srcObject = global.remoteStream;
-            this.self.setconnected();
+            communication.setconnected();
         });
         this.call.on('close', function() {
             global.remoteStream = null;
             document.getElementById('unconnected').style.display = 'inline';
             document.getElementById('connected').style.display = 'none';
-            this.self.status.innerHTML = "Awaiting connection...";
+            communication.status.innerHTML = "Awaiting connection...";
             alert('Call has been closed');
-            this.self.call = null;
+            communication.call = null;
         });
         this.call.on('error', function(err) {
             console.log(err);
@@ -328,15 +327,14 @@ let communication = {
         });
     },
     ready4conn: function() {
-        this.conn.self = this;
         this.conn.on('data', function(data) {
-            this.self.status.innerHTML = "Connected to: " + this.peer;
-            this.self.console.log("Connected to: " + this.peer);
+            communication.status.innerHTML = "Connected to: " + this.peer;
+            console.log("Connected to: " + this.peer);
             this.send('hello! I\'m ' + this.metadata);
         });
         this.conn.on('close', function() {
-            this.self.status.innerHTML = "Connection reset<br>Awaiting connection...";
-            this.self.conn = null;
+            communication.status.innerHTML = "Connection reset<br>Awaiting connection...";
+            communication.conn = null;
         });
     },
     join: function() {

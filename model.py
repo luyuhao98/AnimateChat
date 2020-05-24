@@ -90,9 +90,9 @@ class Animator(object):
         # set kpTarget
         # self.target = __js2NpImg(target)
 
-        # set_trace()
-        nptarget = imageio.imread(target)
-        nptarget = resize(nptarget, (256, 256))
+        img = Image.open(target).convert('RGB');
+        nptarget =np.array(img).astype(np.uint8);
+        nptarget = resize(nptarget, (256, 256));
         self.target[token] = nptarget[np.newaxis].astype(np.float32).transpose(0, 3, 1, 2)
 
         self.kpTarget[token] = self.kpDetector([self.target[token]])

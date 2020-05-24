@@ -67,4 +67,5 @@ def debug():
 
 
 if __name__ == '__main__':
-    app.run(threaded=True)
+    app.run(host='0.0.0.0',threaded=True,ssl_context=('ssl/localhost+3.crt', 'ssl/localhost+3.key'))
+    #app.run(host='0.0.0.0',threaded=True)
