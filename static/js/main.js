@@ -6,7 +6,7 @@ let global = {
     },
     orgVideo: null,
     orgVideoTrack: null,
-    animateft: 50,
+    animateft: 200,
     width: 256,
     height: 256,
     c1: null,
@@ -21,7 +21,8 @@ let faceAnimate = {
 
     showc1: async function() {
         while (global.T && global.DI && global.animating) {
-            await this.computeFrame();
+            //await this.computeFrame();
+            this.computeFrame();
             await this.timeout(global.animateft);
         }
         return;
@@ -108,6 +109,8 @@ let faceAnimate = {
     },
 
     animate: async function(e) {
+        global.animating = false;
+        await this.self.timeout(global.animateft);
         await this.self.updateDI();
         global.animating = true;
         await this.self.showc1();
