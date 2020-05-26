@@ -25,7 +25,7 @@ let faceAnimate = {
     showc1: async function(timestamp) {
         while (global.T && global.DI && global.showtime===timestamp) {
             //await this.computeFrame();
-            this.computeFrame();
+            this.computeFrame(timestamp);
             await this.timeout(global.animateft);
         }
         return;
@@ -116,7 +116,7 @@ let faceAnimate = {
         await this.self.showc1(global.showtime);
     },
 
-    computeFrame: async function() {
+    computeFrame: async function(timestamp) {
 
         let canvas = document.createElement("canvas");
         canvas.width = global.width;
@@ -132,12 +132,15 @@ let faceAnimate = {
             res = await res.json()
             img = new Image();
             img.onload = function() {
-                global.ctx1.drawImage(img, 0, 0);
-                if (global.sendanimate)
-                    global.ctx2.drawImage(img, 0, 0);
-                else {
-                    global.ctx2.drawImage(global.orgVideo, 0, 0);
-                }
+              if(global.showtime!=timestamp)
+                return;
+              
+              global.ctx1.drawImage(img, 0, 0);
+              if (global.sendanimate)
+                  global.ctx2.drawImage(img, 0, 0);
+              else {
+                  global.ctx2.drawImage(global.orgVideo, 0, 0);
+              }
             };
             img.src = res;
         } catch (error) {
@@ -178,9 +181,8 @@ let getMedia = {
     },
 
     errorMsg: function(msg, error) {
-        const errorElement = document.querySelector('#errorMsg');
-        errorElement.innerHTML += `<p>${msg}</p>`;
         if (typeof error !== 'undefined') {
+            alert('ERROR'+error);
             console.error(error);
         }
     },

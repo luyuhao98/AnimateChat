@@ -53,7 +53,7 @@ def animate():
 
 @app.route('/api/unload', methods=['GET'])
 def unload():
-        set_trace()
+        #set_trace()
         global animator
         animator.unload(request.cookies.get("token"))
         return '200'

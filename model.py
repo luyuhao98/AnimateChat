@@ -139,8 +139,14 @@ class Animator(object):
 
     def unload(self,token):
         try:
-            del target[token]
-            del kpTarget[token]
-            del target[token]
+            del self.target[token]
+        except Exception as e:
+            print(e)
+        try:
+            del self.kpTarget[token]
+        except Exception as e:
+            print(e)
+        try:
+            del self.kpDrivingInitial[token]
         except Exception as e:
             print(e)
