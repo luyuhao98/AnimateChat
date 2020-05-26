@@ -13,14 +13,17 @@ let global = {
     ctx1: null,
     T: false,
     DI: false,
-    animating: false,
+    showtime: null,
     sendanimate: true,
+    showtimeupdate : function(){
+      this.showtime = new Date().getTime();
+    },
 }
 
 let faceAnimate = {
 
-    showc1: async function() {
-        while (global.T && global.DI && global.animating) {
+    showc1: async function(timestamp) {
+        while (global.T && global.DI && global.showtime===timestamp) {
             //await this.computeFrame();
             this.computeFrame();
             await this.timeout(global.animateft);
@@ -53,8 +56,7 @@ let faceAnimate = {
     },
 
     uploadtarget: async function(inp) {
-        global.animating = false;
-        await this.self.timeout(1000)
+        global.showtimeupdate();
         if (!inp.target.files.length)
             return;
         let formData = new FormData();
@@ -109,11 +111,9 @@ let faceAnimate = {
     },
 
     animate: async function(e) {
-        global.animating = false;
-        await this.self.timeout(global.animateft);
         await this.self.updateDI();
-        global.animating = true;
-        await this.self.showc1();
+        global.showtimeupdate();
+        await this.self.showc1(global.showtime);
     },
 
     computeFrame: async function() {
@@ -141,8 +141,8 @@ let faceAnimate = {
             };
             img.src = res;
         } catch (error) {
-            alert('Fail to animate!')
-            global.animating = false;
+            //alert('Fail to animate! '+error)
+            //global.showtimeupdate();
         }
         return;
     },
